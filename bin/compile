@@ -96,7 +96,7 @@ done
 mkdir -p $BUILD_DIR/.apt
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
-  PACKAGE_NAME=$(basename $PACKAGE .deb)
+  PACKAGE_NAME=$(basename $DEB .deb)
   topic "Package name: $PACKAGE_NAME"
   if [[ $PACKAGE_NAME == "unixodbc-dev_2.3.7_amd64" ]]; then
     topic "Set bashrc"
