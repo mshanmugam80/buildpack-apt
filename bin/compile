@@ -96,8 +96,15 @@ done
 mkdir -p $BUILD_DIR/.apt
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
-  topic "Installing $(basename $DEB)"
+  topic "Installing:$DEB => $(basename $DEB)"
   dpkg -x $DEB $BUILD_DIR/.apt/
+  if [[ $DEB == msodbcsql17* ]]; then
+    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+    source ~/.bashrc
+  fi
+  if [[ $DEB == mssql-tools* ]]; then
+    source ~/.bashrc
+  fi
 done
 
 topic "Writing profile script"
