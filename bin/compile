@@ -96,13 +96,15 @@ done
 mkdir -p $BUILD_DIR/.apt
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
-  topic "Installing:$DEB => $(basename $DEB)"
+  topic "Installing: $(basename $DEB)"
   dpkg -x $DEB $BUILD_DIR/.apt/
-  if [[ $DEB == msodbcsql17* ]]; then
-    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
-    source ~/.bashrc
-  fi
   if [[ $DEB == mssql-tools* ]]; then
+    topic "Exporting mssql-tools path"
+    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+  fi
+  if [[ $DEB == unixodbc-dev* ]]; then
+    topic "Set bashrc"
     source ~/.bashrc
   fi
 done
